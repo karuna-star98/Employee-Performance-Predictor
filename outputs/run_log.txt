@@ -1,0 +1,146 @@
+
+======================================================================
+PHASE 2: Create synthetic company data
+======================================================================
+Saved 3000 employees x 28 columns -> /home/claude/Employee-Performance-Predictor/data/employee_features.csv
+perf_band_next
+Medium    0.55
+Low       0.25
+High      0.20
+Name: proportion, dtype: float64
+                               0          1            2            3         4
+employee_id             EMP00001   EMP00002     EMP00003     EMP00004  EMP00005
+age                           54         53           51           52        24
+gender                    Female       Male         Male         Male     Other
+education              Bachelors  Bachelors          PhD    Bachelors       PhD
+experience_years            31.1       30.1         26.7         30.1       1.0
+department                 Sales         HR  Engineering  Engineering    DevOps
+job_level                     L4         L4           L4           L4        L1
+manager_tenure               3.8        0.7          2.3          2.5       1.4
+projects_count                 3          2            2            4         5
+avg_task_delay_days         -3.0        6.5          4.4          4.2       3.7
+on_time_delivery_rate      0.926      0.672        0.852        0.646     0.864
+bug_count                      2          8            4            9         3
+
+======================================================================
+PHASE 3: Data quality checks + cleaning
+======================================================================
+{
+  "rows": 3000,
+  "columns": 28,
+  "duplicate_ids": 0,
+  "duplicate_rows": 0,
+  "missing_by_column": {
+    "code_review_score": 88,
+    "training_hours": 78,
+    "avg_login_hours": 52,
+    "peer_feedback_score": 117,
+    "manager_score": 82
+  },
+  "out_of_range": {
+    "experience_years": 0,
+    "on_time_delivery_rate": 0,
+    "manager_score": 0,
+    "peer_feedback_score": 0,
+    "code_review_score": 0,
+    "avg_task_delay_days": 0,
+    "billable_hours_ratio": 0
+  }
+}
+
+======================================================================
+PHASE 4: EDA
+======================================================================
+Top mutual-information features:
+ on_time_delivery_rate     0.349
+manager_score             0.274
+peer_feedback_score       0.220
+code_review_score         0.183
+story_points_completed    0.182
+kudos_count               0.153
+avg_task_delay_days       0.146
+bug_count                 0.140
+dtype: float64
+
+======================================================================
+PHASE 5-6: Feature engineering + model training
+======================================================================
+Train: 2400 | Test: 600
+
+Model comparison (5-fold CV macro-F1):
+ LogisticRegression     0.8081
+RandomForest(tuned)    0.8051
+GradientBoosting       0.8011
+
+Best model: LogisticRegression
+
+======================================================================
+PHASE 7: Evaluation on hold-out test set
+======================================================================
+
+=== HOLD-OUT TEST RESULTS ===
+              precision    recall  f1-score   support
+
+         Low      0.787     0.840     0.813       150
+      Medium      0.862     0.797     0.828       330
+        High      0.756     0.850     0.800       120
+
+    accuracy                          0.818       600
+   macro avg      0.802     0.829     0.814       600
+weighted avg      0.822     0.818     0.819       600
+
+Accuracy 0.818 | Macro-F1 0.814 | ROC-AUC 0.941
+
+Top 10 drivers:
+ on_time_delivery_rate      0.0797
+learning_index             0.0530
+avg_task_delay_days        0.0368
+manager_score              0.0255
+story_points_completed     0.0250
+unplanned_absences         0.0197
+code_review_score          0.0170
+training_hours             0.0164
+hackathons_participated    0.0133
+department                 0.0133
+
+======================================================================
+PHASE 8a: Fairness audit
+======================================================================
+
+=== FAIRNESS AUDIT (High-band selection rate by group) ===
+ group_col        group   n  actual_high_rate  high_selection_rate  low_flag_rate  macro_f1
+    gender       Female 253             0.229                0.241          0.233     0.790
+    gender         Male 335             0.182                0.212          0.290     0.833
+ age_group        40-49 175             0.171                0.183          0.269     0.826
+ age_group        30-39 169             0.219                0.243          0.290     0.786
+ age_group          50+ 119             0.210                0.261          0.202     0.797
+ age_group          <30 137             0.204                0.226          0.292     0.841
+department        Sales 114             0.193                0.202          0.298     0.850
+department  Engineering 189             0.243                0.286          0.228     0.827
+department       DevOps  77             0.169                0.169          0.273     0.807
+department           HR  56             0.179                0.196          0.214     0.862
+department           QA  81             0.123                0.148          0.358     0.709
+department Data Science  83             0.229                0.265          0.253     0.755
+ job_level           L4 361             0.197                0.222          0.233     0.801
+ job_level           L3  74             0.216                0.257          0.311     0.809
+ job_level           L2  79             0.228                0.241          0.304     0.828
+ job_level           L1  86             0.174                0.198          0.337     0.852
+
+Disparate-impact ratios (>= 0.80 passes the 4/5ths rule): {'age_group': 0.701, 'department': 0.517, 'gender': 0.88, 'job_level': 0.77}
+NOTE: compare 'actual_high_rate' with 'high_selection_rate'. If the model only mirrors real base-rate differences (and groups are small), that is not necessarily model bias.
+
+======================================================================
+PHASE 8b: Score all employees + recommendations
+======================================================================
+Wrote predictions.csv and 25 one-pagers in outputs/employee_reports/
+
+======================================================================
+PHASE 9: Dashboard
+======================================================================
+Saved images/10_hr_dashboard.png
+
+======================================================================
+DONE
+======================================================================
+Model: LogisticRegression | Test accuracy 0.818 | Macro-F1 0.814
+Open the images/ and outputs/ folders — that is your project proof.

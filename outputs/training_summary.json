@@ -1,0 +1,8 @@
+S{
+  "best_model": "LogisticRegression",
+  "cv_scores": {
+    "LogisticRegression": 0.8081465377004502,
+    "RandomForest(tuned)": 0.79831130515591,
+    "GradientBoosting": 0.7975988172142311
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "rows": 3000,
+  "columns": 28,
+  "duplicate_ids": 0,
+  "duplicate_rows": 0,
+  "missing_by_column": {
+    "code_review_score": 88,
+    "training_hours": 78,
+    "avg_login_hours": 52,
+    "peer_feedback_score": 117,
+    "manager_score": 82
+  },
+  "out_of_range": {
+    "experience_years": 0,
+    "on_time_delivery_rate": 0,
+    "manager_score": 0,
+    "peer_feedback_score": 0,
+    "code_review_score": 0,
+    "avg_task_delay_days": 0,
+    "billable_hours_ratio": 0
+  }
+}

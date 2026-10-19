@@ -1,0 +1,4 @@
+,cv_f1_macro
+LogisticRegression,0.8081
+RandomForest(tuned),0.7983
+GradientBoosting,0.7976

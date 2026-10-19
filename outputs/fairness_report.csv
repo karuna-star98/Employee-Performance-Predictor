@@ -1,0 +1,17 @@
+group_col,group,n,actual_high_rate,high_selection_rate,low_flag_rate,macro_f1
+gender,Female,253,0.229,0.241,0.233,0.79
+gender,Male,335,0.182,0.212,0.29,0.833
+age_group,40-49,175,0.171,0.183,0.269,0.826
+age_group,30-39,169,0.219,0.243,0.29,0.786
+age_group,50+,119,0.21,0.261,0.202,0.797
+age_group,<30,137,0.204,0.226,0.292,0.841
+department,Sales,114,0.193,0.202,0.298,0.85
+department,Engineering,189,0.243,0.286,0.228,0.827
+department,DevOps,77,0.169,0.169,0.273,0.807
+department,HR,56,0.179,0.196,0.214,0.862
+department,QA,81,0.123,0.148,0.358,0.709
+department,Data Science,83,0.229,0.265,0.253,0.755
+job_level,L4,361,0.197,0.222,0.233,0.801
+job_level,L3,74,0.216,0.257,0.311,0.809
+job_level,L2,79,0.228,0.241,0.304,0.828
+job_level,L1,86,0.174,0.198,0.337,0.852
